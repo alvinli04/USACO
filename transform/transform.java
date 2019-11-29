@@ -1,7 +1,7 @@
 /*
 ID: ali201
 LANG: JAVA
-TASK: ride
+TASK: transform
 */
 
 import java.io.*;
@@ -22,32 +22,43 @@ public class transform{
                         end[i] = br.readLine().toCharArray();
                 }
                 //make the arrays
-                if(Arrays.equals(end, start)){
-                        fw.write(6 + "\n");
-                        fw.close();
+
+                //tset print
+                for(char[] i: start){
+                        for(char j: i){
+                                System.out.print(i);
+                        }
+                        System.out.println();
+                }
+
+                //checks
+                if(Arrays.equals(end, rot(start))){
+                        fw.write(1 + "\n");
+                }
+                else if(Arrays.equals(end, rot(rot(start)))){
+                        fw.write(2 + "\n");
+                }
+                else if(Arrays.equals(end, rot(rot(start)))){
+                        fw.write(3 + "\n");
                 }
                 else if(Arrays.equals(end, reflect(start))){
                         fw.write(4 + "\n");
-                        fw.close();
+                }
+                else if(
+                (Arrays.equals(end, reflect(rot(start))))||
+                (Arrays.equals(end, reflect(rot(rot(start)))))||
+                (Arrays.equals(end, reflect(rot(rot(rot(start))))))
+                ){
+                        fw.write(5 + "\n");
+                }
+                else if(Arrays.equals(end, start)){
+                        fw.write(6 + "\n");
                 }
                 else{
-                        for(int i = 1; i < 4; i++){
-                                start = rot90(start);
-                                if(Arrays.equals(start, end)){
-                                        fw.write(i + "\n");
-                                        fw.close();
-                                }
-                                else if(Arrays.equals(reflect(start), end)){
-                                        fw.write(5 + "\n");
-                                        fw.close();
-                                }
-                        }
                         fw.write(7 + "\n");
-                        fw.close();
                 }
+                fw.close();
                 br.close();
-
-
         }
 
         public static char[][] reflect(char[][] input){
@@ -62,7 +73,7 @@ public class transform{
                 return arr;
         }
 
-        public static char[][] rot90(char[][] input){
+        public static char[][] rot(char[][] input){
                 char[][] arr = new char[input.length][input[0].length];
                 for(int i = 0; i < input.length; i++){
                         for(int j = 0; j < input[0].length; j++){
