@@ -23,30 +23,27 @@ public class transform{
                 }
                 //make the arrays
 
-                //tset print
-                //System.out.println();
-
                 //checks
-                if(equals(end, rot(start))){
+                if(Arrays.deepEquals(end, rot(start))){
                         fw.write(1 + "\n");
                 }
-                else if(equals(end, rot(rot(start)))){
+                else if(Arrays.deepEquals(end, rot(rot(start)))){
                         fw.write(2 + "\n");
                 }
-                else if(equals(end, rot(rot(start)))){
+                else if(Arrays.deepEquals(end, rot(rot(start)))){
                         fw.write(3 + "\n");
                 }
-                else if(equals(end, reflect(start))){
+                else if(Arrays.deepEquals(end, reflect(start))){
                         fw.write(4 + "\n");
                 }
                 else if(
-                (equals(end, reflect(rot(start))))||
-                (equals(end, reflect(rot(rot(start)))))||
-                (equals(end, reflect(rot(rot(rot(start))))))
+                (Arrays.deepEquals(end, reflect(rot(start))))||
+                (Arrays.deepEquals(end, reflect(rot(rot(start)))))||
+                (Arrays.deepEquals(end, reflect(rot(rot(rot(start))))))
                 ){
                         fw.write(5 + "\n");
                 }
-                else if(equals(end, start)){
+                else if(Arrays.deepEquals(end, start)){
                         fw.write(6 + "\n");
                 }
                 else{
@@ -54,6 +51,15 @@ public class transform{
                 }
                 fw.close();
                 br.close();
+
+                System.out.println("end");
+                for(char[] i: end){
+                        for(char j: i){
+                                System.out.print(j);
+                        }
+                        System.out.println();
+                }
+                System.out.println(Arrays.deepEquals(end, rot(start)));
         }
 
         public static char[][] reflect(char[][] input){
@@ -76,16 +82,5 @@ public class transform{
                         }
                 }
                 return arr;
-        }
-        public static boolean equals(char[][] a, char[][] b){
-                int len = a.length;
-                for(int i = 0; i < len; i++){
-                        for(int j = 0; j < len; j++){
-                                if(a[i][j] != b[i][j]){
-                                        return false;
-                                }
-                        }
-                }
-                return true;
         }
 }
