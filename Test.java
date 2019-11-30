@@ -1,34 +1,24 @@
 import java.util.*;
 public class Test{
         public static void main(String[] args) {
-                char[][] bob = {
-                        {'-', '@', '@', '@', '-'},
-                        {'-', '@', '@', '-', '-'},
-                        {'-', '@', '-', '-', '-'},
-                        {'-', '-', '-', '-', '-'},
-                        {'-', '-', '-', '-', '-'},
-                };
-
-                char[][] joe = {
-                        {'-', '@', '@', '@', '-'},
-                        {'-', '@', '@', '-', '-'},
-                        {'-', '@', '-', '-', '-'},
-                        {'-', '-', '-', '-', '-'},
-                        {'-', '-', '-', '-', '-'},
-                };
-                int[] sam = {1,2,3};
-                int[] sal = {1,2,3};
-                System.out.println(foo(bob, joe));
-                //false
+                System.out.println(toBaseN(35, 2));
+                int n = 10000000000;
         }
-
-        public static boolean foo(char[][] a, char[][] b){
-                int len = a.length;
-                for(int i = 0; i < len; i++){
-                        if(!(Arrays.equals(a[i], b[i]))){
-                                return false;
-                        }
+        public static int toBaseN(int num, int base){
+                String out = "";
+                int x = num;
+                while(x > 0){
+                        out = out + Integer.toString(x % base);
+                        x /= base;
                 }
-                return true;
+                char[] bob = out.toCharArray();
+                for(int n = 0; n < bob.length / 2; n++){
+                        char temp = bob[n];
+                        bob[n] = bob[bob.length - n - 1];
+                        bob[bob.length - n - 1] = temp;
+                }
+                String joe = String.valueOf(bob);
+                int res = Integer.parseInt(joe);
+                return res;
         }
 }
