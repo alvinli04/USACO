@@ -14,10 +14,9 @@ public class namenum{
                 FileWriter fw = new FileWriter("namenum.out");
                 HashMap<String, String> map = new HashMap<>();
 
-                for(int j = 0; j < 4617; j++) {
-                        String line = dict.readLine();
+                String line;
+                while((line = dict.readLine()) != null) {
                         String num = "";
-                        System.out.println("hey");
                         for(int i = 0; i < line.length(); i++){
                                 if(line.charAt(i) == 'A' || line.charAt(i) == 'B' || line.charAt(i) == 'C'){
                                         num = num + "2";
@@ -47,14 +46,12 @@ public class namenum{
                         //convert all the names to number strings
                         map.put(num, line);
                         //put every number to a name in dict
-
-                        String numName = br.readLine();
-                        fw.write(map.get(numName) + "\n");
-
-                        fw.close();
-                        dict.close();
-                        br.close();
                 }
+                String numName = br.readLine();
+                fw.write(map.get(numName) + "\n");
 
+                fw.close();
+                dict.close();
+                br.close();
         }
 }
