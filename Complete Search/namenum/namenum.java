@@ -12,7 +12,7 @@ public class namenum{
                 BufferedReader br = new BufferedReader(new FileReader("namenum.in"));
                 BufferedReader dict = new BufferedReader(new FileReader("dict.txt"));
                 FileWriter fw = new FileWriter("namenum.out");
-                HashMap<String, String> map = new HashMap<>();
+                HashMap<String, ArrayList<String>> map = new HashMap<>();
 
                 String line;
                 while((line = dict.readLine()) != null) {
@@ -44,11 +44,30 @@ public class namenum{
                                 }
                         }
                         //convert all the names to number strings
-                        map.put(num, line);
+                        if(map.containsKey(num)){
+                                map.get(num).add(line);
+                        }
+                        else{
+                                map.put(num, new ArrayList<String>());
+                                map.get(num).add(line);
+                        }
                         //put every number to a name in dict
                 }
                 String numName = br.readLine();
-                fw.write(map.get(numName) + "\n");
+                if(!map.containsKey(numName)){
+                        fw.write("NONE\n");
+                        fw.close();
+                        System.exit(0);
+                }
+                ArrayList<String> answer = map.get(numName);
+                String[] bob = new String[answer.size()];
+                for(int i = 0; i < answer.size(); i++){
+                        bob[i] = answer.get(i);
+                }
+                Arrays.sort(bob);
+                for(String i: bob){
+                        fw.write(i + "\n");
+                }
 
                 fw.close();
                 dict.close();
