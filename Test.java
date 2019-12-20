@@ -2,7 +2,7 @@ import java.util.*;
 public class Test{
         public static void main(String[] args) {
                 System.out.println(toBaseN(35, 2));
-                int n = 10000000000;
+                int n = 1000;
         }
         public static int toBaseN(int num, int base){
                 String out = "";
