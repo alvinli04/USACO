@@ -6,7 +6,7 @@ def op(L):
         param1 = L[index] // 100 % 10
         param2 = L[index] // 1000 % 10
         #param3 = L[index] // 10000 % 10
-        
+        bob1, bob2 = -1, -1
         if(param1 == 0):
             bob1 = L[L[index + 1]]
             print(str(bob1))
