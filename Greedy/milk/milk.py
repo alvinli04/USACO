@@ -17,8 +17,8 @@ for i in range(1, M+1):
     prices[int(line[0])] = int(line[1]) 
     ppus += [int(line[0])]
 ppus.sort()
-#print(prices)
-#print(ppus)
+print(prices)
+print(ppus)
 totalCost = 0
 totalMilk = 0
 for i in ppus:
