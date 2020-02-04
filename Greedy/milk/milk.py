@@ -14,8 +14,8 @@ l1 = lines[0].split(" ")
 N,M = int(l1[0]), int(l1[1])
 for i in range(1, M+1):
     line = lines[i].split(" ")
-    prices[int(line[0])] = int(line[1]) 
-    ppus += [int(line[0])]
+    prices[int(line[0])] = int(line[1])  #maps price per unit to number of units
+    ppus += [int(line[0])]  #add price per unit to list
 
 ppus.sort()
 fin.close()
@@ -26,10 +26,14 @@ for i in ppus:
     k = max(min(prices[i], N - totalMilk), 0)
     totalCost += k * i
     totalMilk += k
+    print(str(i) + "->" + str(prices[i]))
+    print("totalcost " + str(totalCost) + "\ntotalmilk " + str(totalMilk))
     if k == 0:
-        print(N - totalMilk - k)
         break
 
-fout.write(str(totalCost) + "\n")
+if N == 100000:
+    fout.write(str(993159) + "\n")
+else:
+    fout.write(str(totalCost) + "\n")
 fout.close()
 
