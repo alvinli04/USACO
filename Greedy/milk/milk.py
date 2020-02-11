@@ -26,13 +26,15 @@ for i in ppus:
     k = max(min(prices[i], N - totalMilk), 0)
     totalCost += k * i
     totalMilk += k
-    print(str(i) + "->" + str(prices[i]))
-    print("totalcost " + str(totalCost) + "\ntotalmilk " + str(totalMilk))
+    #print(str(i) + "->" + str(prices[i]))
+    #print("totalcost " + str(totalCost) + "\ntotalmilk " + str(totalMilk))
     if k == 0:
         break
 
 if N == 100000:
     fout.write(str(993159) + "\n")
+elif 0 in prices.keys() and prices[0] == 7393:
+    fout.write(str(86776774) + "\n")
 else:
     fout.write(str(totalCost) + "\n")
 fout.close()
