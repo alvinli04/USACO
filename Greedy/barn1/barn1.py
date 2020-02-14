@@ -13,14 +13,16 @@ occupied = []
 for i in lines:
     occupied.append(int(i))
 occupied.sort()
+#print(occupied)
 gaps = maxboards - 1
-L = [0] * gaps
+L = [] 
 for i in range(1, len(occupied)):
-    L.sort()
-    if occupied[i] - occupied[i - 1] > L[0]:
-        L[0] = occupied[i] - occupied[i-1]
+    L.append(occupied[i] - occupied[i - 1])
+
+L.sort()
+L = L[len(L) - gaps :]
 print(L)
-res = sum(L) + occupied[0] - 1 + stalls - occupied[len(occupied) - 1]
+res = sum(L) + occupied[0] - 1 + stalls - occupied[len(occupied) - 1] - len(L)
 fout.write(str(stalls - res) + "\n")
 fout.close()
 fin.close()
