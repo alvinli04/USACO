@@ -13,31 +13,34 @@ fin.close()
 bisquares = set()
 for i in range(M+1):
     for j in range(M+1):
-        bisquares.add(i**2 + j**2)
+        bisquares.add(i**2 + j**2)#use bisquares to check membership
 
 listSq = [i for i in bisquares]
 listSq.sort()
 
-tot = 0
-good = []
-d = []
-for i in range(len(listSq)):
-    for j in range(i+1,len(listSq)):
-        diff = j-i
-        if all(i + k*diff in listSq for k in range(N)):
-            good.append([i,diff])
-            d.append(diff)
-            tot += 1
-d.sort()
-ds = {}
-for i in good:
-    ds[i[1]].append(i[0])
-for i in ds.keys():
-    ds[i].sort()
+toVal = dict()
 
-for i in d:
-    for j in ds[d]:
-        fout.write(str(ds[i][j]) + " " + str(i) + '\n')
-if tot == 0:
+exists = False
+for i in range(len(listSq)):
+    for j in range(i+1, len(listSq)):
+        multiplier = listSq[j]-listSq[i]
+        if all(listSq[i] + k*multiplier in bisquares for k in range(N)):
+                exists = True
+                #gets the starting value, i and the gap, multiplier
+                if not multiplier in toVal.keys():
+                    toVal[multiplier] = [listSq[i]]
+                else:
+                    toVal[multiplier].append(listSq[i])
+
+multipliers = list(toVal.keys())
+multipliers.sort()
+for i in toVal:
+    toVal[i].sort()
+
+for i in multipliers:
+    for j in toVal[i]:
+        fout.write(str(j) + " " + str(i) + '\n')
+if not exists:
     fout.write('NONE\n')
+
 fout.close()
