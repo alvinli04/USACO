@@ -1,43 +1,35 @@
-#include <iostream>
-#include <fstream>
-const int MAX_N = 100000;
+#include <bits/stdc++.h>
 using namespace std;
  
-long long score[MAX_N+1];
-long long suffix_sum[MAX_N+1];
-long long suffix_min[MAX_N+1];
-long long best_num, best_den;
+int main() {
+  freopen("homework.in", "r", stdin);
+  freopen("homework.out", "w", stdout);
  
-int main(void)
-{
-  ifstream fin ("homework.in");
-  ofstream fout ("homework.out");
- 
-  int N;
+  int n; cin >> n;
   
-  fin >> N;
-  for (int i=1; i<=N; i++) 
-    fin >> score[i];
+  long long score[n];
+  long long ssums[n];
+  long long smin[n];
+  long long mx, tmx;
+
+  for (int i=1; i<=n; i++) 
+    cin >> score[i];
   
-  suffix_sum[N] = score[N];
-  suffix_min[N] = score[N];
-  for (int i=N-1; i>=1; i--) {
-    suffix_sum[i] = suffix_sum[i+1] + score[i];
-    suffix_min[i] = min(suffix_min[i+1], score[i]);
+  ssums[n] = score[n];
+  smin[n] = score[n];
+  for (int i=n-1; i>=1; i--) {
+    ssums[i] = ssums[i+1] + score[i];
+    smin[i] = min(smin[i+1], score[i]);
   }
- 
-  best_num = 0;
-  best_den = 1;
+  mx = 0, tmx = 1;
   
-  for (int i=1; i<=N-2; i++) 
-    if ((suffix_sum[i+1]-suffix_min[i+1]) * best_den > best_num * (N-i-1)) {
-      best_num = suffix_sum[i+1]-suffix_min[i+1];
-      best_den = N-i-1;
+  for (int i=1; i<=n-2; i++) 
+    if ((ssums[i+1] - smin[i+1]) * tmx > mx * (n-i-1)) {
+      mx = ssums[i+1]-smin[i+1];
+      tmx = n-i-1;
     }
   
-  for (int i=1; i<=N-2; i++) 
-    if ((suffix_sum[i+1]-suffix_min[i+1]) * best_den == best_num * (N-i-1)) 
-      fout << i << "\n";
-  
-  return 0;
+  for (int i=1; i<=n-2; i++) 
+    if ((ssums[i+1] - smin[i+1]) * tmx == mx * (n-i-1)) 
+      cout << i << '\n';
 }
