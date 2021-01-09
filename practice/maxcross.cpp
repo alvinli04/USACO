@@ -1,23 +1,41 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+int n,k,b;
+
+bool check(int m, int* arr){
+	int mx = INT_MAX;
+	for(int i=k; i<n+1; i++){
+		mx = min(mx, arr[i] - arr[i-k]);
+	}
+	return mx <= m;
+}
+
 int main(){
 	freopen("maxcross.in", "r", stdin);
 	freopen("maxcross.out", "w", stdout);
-	int n,k,b; cin >> n >> k >> b;
-	multiset<int> broken, highest;
+	cin >> n >> k >> b;
+	int arr[n+1];
+	memset(arr, 0, sizeof(arr));
 	for(int i=0; i<b; i++){
-		int x; cin >> x;
-		broken.insert(x);
+		int a; cin >> a;
+		arr[a] = 1;
 	}
-	int lights[n+1];
-	lights[0]=0;
-	for(int i=1; i<=n; i++){
-		lights[i] = lights[i-1] + (broken.find(i)!=broken.end());
+	
+	for(int i=1; i<n+1; i++){
+		arr[i] = arr[i] + arr[i-1];
 	}
-	int mn = INT_MAX;
-	for(int i=k; i<=n; i++){
-		mn = min(mn, lights[i]-lights[i-k]);
+	
+	int l=0, r=n, ans;
+	while(l<=r){
+		int m = (l+r)/2;
+		if(check(m, arr)){
+			ans = m;
+			r = m-1;
+		} else {
+			l = m+1;
+		}
 	}
-	cout << mn << '\n';
+	
+	cout << ans;
 }

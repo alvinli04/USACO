@@ -1,25 +1,46 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int fav[n][2], occ[100001] = {};
+int occ[100001], cnt = 0; //milk to cow number
+pair<int,int> arr[100001];
 
-void update(int f, int s){
-	if()
+void update(int n, int k){ //args: cow n wants milk k
+	if(occ[k] == 0){
+		//if no cow, just insert
+		occ[k] = n;
+		++cnt;
+		return;
+	} else if(n > occ[k]){
+		return;
+	} else{
+		int swp = occ[k];
+		occ[k] = n;
+		if(k==arr[swp].first){
+			update(swp, arr[swp].second);
+		} else{
+			return;
+		}
+	}
 }
 
 int main(){
-	int n,m; cin >> n >> m; //cereals 1-m
-	for(int i=0; i<n; i++){
-		cin >> fav[i][0] >> fav[i][1];
+	freopen("cereal.in", "r", stdin);
+	freopen("cereal.out", "w", stdout);
+	
+	int n,m; cin >> n >> m;
+	
+	for(int i=1; i<=n; i++)
+		cin >> arr[i].first >> arr[i].second;
+	
+	vector<int> cnts;
+	
+	for(int i=n; i>0; i--){
+		update(i, arr[i].first);
+		cnts.push_back(cnt);
 	}
-	map<int,int> taken;
-	int output[n+1] = {};
-	for(int i=n-1; i>=0; i--){
-		if(taken[fav[i][0]] == 0){
-			taken[fav[i][0]] = i;
-			output[i] = output[i+1]+1;
-		} else {
-			
-		}
+	
+	reverse(cnts.begin(), cnts.end());
+	for(int a : cnts){
+		printf("%d\n", a);
 	}
 }
