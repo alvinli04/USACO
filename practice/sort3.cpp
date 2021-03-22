@@ -1,0 +1,41 @@
+/*
+TASK: sort3
+LANG: C++
+ID: ali201
+ */
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int cont[3][3];
+
+int main(){
+	freopen("sort3.in", "r", stdin);
+	freopen("sort3.out", "w", stdout);
+	
+	int n; cin >> n;
+	int arr[n]; for(int& i : arr) cin >> i;
+
+	int one=0, two=0, three=0;
+	for(int i:arr){
+		one += (i==1);
+		two += (i==2);
+		three += (i==3);
+	}
+
+	for(int i=0; i<one; i++)
+		++cont[0][arr[i]-1];
+	for(int i=one; i<one + two; i++)
+		++cont[1][arr[i]-1];
+	for(int i=one + two; i<n; i++)
+		++cont[2][arr[i]-1];
+	int ans = 0;
+	ans += min(cont[0][1], cont[1][0]);
+	cont[0][1] -= min(cont[0][1], cont[1][0]);
+	ans += min(cont[0][2], cont[2][0]);
+	cont[0][2] -= min(cont[0][2], cont[2][0]);
+	ans += min(cont[1][2], cont[2][1]);
+	//cout << cont << '\n';
+	ans += cont[0][1] * 2 + cont[0][2] * 2;
+	cout << ans << '\n';
+}
